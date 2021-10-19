@@ -1,39 +1,46 @@
 const CLIENT = {
   PERS_INFO: {
-    ID,
-    EMAIL,
-    PASSWORD,
-    NAME,
+    // type object
+    ID: randomID, // type string
+    EMAIL: "theiremailhere@smth.com", // type string
+    PASSWORD: "password", // type string
+    NAME: "Joe Biden", // type string
   },
   STAGE1: {
-    COMPLETED,
-    ADDRESS,
-    ELIGIBILITY,
-    OTHER_DETAILS,
-    PASSED,
+    // type object
+    COMPLETED: false, // if they completed this stage. type boolean
+    ADDRESS: null, // type string
+    ELIGIBILITY: false, //type boolean
+    OTHER_DETAILS_OR_ANSWERS_TO_QUESTIONS_OBJECT: null, // type object
+    PASSED: null, // if the admin decided they passed this stage. type boolean
   },
   STAGE2: {
-    COMPLETED,
-    CHARACTER_LINK,
-    PASSED,
+    // type object
+    COMPLETED: false, // type boolean
+    CHARACTER_LINK: null, // type string
+    PASSED: null, // type boolean
   },
   STAGE3: {
-    COMPLETED,
-    SCRATCH_LINK,
-    PASSED,
+    // type object
+    COMPLETED: false, // type boolean
+    SCRATCH_LINK: null, // type string
+    PASSED: null, // type boolean
   },
   STAGE4: {
-    COMPLETED,
-    VIDEO_LINK,
-    PASSED,
+    // type object
+    COMPLETED: false, // type boolean
+    VIDEO_LINK: null, // type string
+    PASSED: null, // type boolean
   },
   INTERVIEW: {
-    COMPLETED,
-    VIDEO_INTERVIEW_PREFFERED_DATE,
-    PASSED,
+    // type object
+    COMPLETED: false, // type boolean
+    VIDEO_INTERVIEW_PREFFERED_DATE: null, // type string
+    PASSED: null, // type boolean
   },
   FINAL_STAGE: {
-    PASSED, //(PENDING,ACCEPTED,REJECTED),
+    // type object
+    PASSED: null, //(PENDING,ACCEPTED,REJECTED),
   },
 };
 
