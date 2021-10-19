@@ -1,0 +1,67 @@
+<mxfile host="65bd71144e">
+    <diagram id="Fw_nxae8Y8zTBe-tlott" name="Page-1">
+        <mxGraphModel dx="731" dy="508" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="267" y="155" as="sourcePoint"/>
+                        <mxPoint x="333" y="155" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="263" y="155"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="&lt;font color=&quot;#1a1a1a&quot;&gt;Home page&lt;br&gt;&amp;nbsp;&amp;lt; Go to application portal &amp;gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="125" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;font color=&quot;#1a1a1a&quot;&gt;&amp;lt; Sign up / Log in &amp;gt;&lt;br&gt;&lt;br&gt;Name&lt;br&gt;Email&amp;nbsp;&lt;br&gt;Password&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="100" width="144" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" target="11">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="474" y="125" as="sourcePoint"/>
+                        <mxPoint x="534" y="125" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="640" y="125"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="&lt;font color=&quot;#1a1a1a&quot;&gt;&lt;br&gt;If signing up&lt;br&gt;data saved as an object&lt;br&gt;&lt;br&gt;Name&amp;nbsp;&lt;br&gt;Email&lt;br&gt;Password&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="100" width="144" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.41;entryY=-0.071;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="14">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="360" y="250" as="sourcePoint"/>
+                        <mxPoint x="360" y="318" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="360" y="210"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="&lt;font color=&quot;#1a1a1a&quot;&gt;If logging in &lt;br&gt;welocme&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="350" width="144" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;font color=&quot;#1a1a1a&quot;&gt;If logging error&lt;br&gt;try again&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="250" width="144" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="16">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="431" y="190" as="sourcePoint"/>
+                        <mxPoint x="430.03999999999996" y="285.03" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="431" y="240"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="&lt;font color=&quot;#1a1a1a&quot;&gt;Continue from your current stage&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="450" width="144" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;font color=&quot;#1a1a1a&quot;&gt;Stage 1&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+                    <mxGeometry x="460" y="450" width="144" height="70" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
