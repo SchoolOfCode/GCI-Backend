@@ -1,8 +1,10 @@
 const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
+const createTable = require("./db/scripts/createTable");
 
 app.get("/", (req, res, next) => {
+  createTable();
   return res.status(200).json({
     message: "Hello from root!",
   });
