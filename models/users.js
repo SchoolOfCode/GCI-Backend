@@ -1,5 +1,73 @@
 const { query } = require("../db");
 
+// CLIENT MODELS
+
+// gets the information from a specific column
+// USE THIS ONE TO CHECK IF YOU HAVE SOMEONE IN PROGRESS OF A SPECIFIC STAGE ON THE CLIENT FRONTEND - if it is null or error, continue from Stage 1
+async function getUserInfo(id, column) {
+  const data = await query("SELECT $1 FROM users WHERE id = $2", [column, id]);
+  return data.rows; // if under a JSON, will have a JSON format
+}
+
+// creates a new user at completion of stage 1 of application using the user object parsed from JSON
+async function postUser(user) {
+  const {
+    username, // string
+    current_stage, //string
+    first_name, // string
+    last_name, // string
+    email, // string
+    contact_number, // integer
+    created_at, // date obj
+    stage_1, //JSON obj
+    stage_2, //JSON obj
+    stage_3, //JSON obj
+    stage_4, //JSON obj
+    interview, //JSON obj
+    final, //JSON obj
+  } = user;
+  const data = await query(
+    "INSERT INTO users (username, current_stage, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;",
+    [
+      username,
+      current_stage,
+      first_name,
+      last_name,
+      email,
+      contact_number,
+      created_at,
+      stage_1,
+      stage_2,
+      stage_3,
+      stage_4,
+      interview,
+      final,
+    ]
+  );
+  return data.rows;
+}
+
+// patch by key using the id and value of your key
+// this is used to update details on an existing user from the users table
+// (if you want to update stage 1 values with your json object the id will be the persons id, the key will be stage_1, the value is the json object)
+async function patchUser(id, column, value) {
+  const data = await query(
+    "UPDATE users SET $1 = $2 WHERE id = $3 RETURNING *;",
+    [column, value, id]
+  );
+  return data.rows;
+}
+
+// deletes user by id if needed
+async function deleteUser(id) {
+  const data = await query("DELETE FROM users WHERE id = $1 RETURNING *;", [
+    id,
+  ]);
+  return data.rows;
+}
+
+// ADMIN MODELS
+
 // gets all User details from all columns
 async function getAllUsers() {
   const data = await query("SELECT * FROM users;");
@@ -29,7 +97,7 @@ async function getUserByFirstName(first_name) {
 }
 
 // get users by last name
-async function getUserBylastName(last_name) {
+async function getUserByLastName(last_name) {
   const data = await query("SELECT * FROM users WHERE last_name ILIKE $1;", [
     `%${last_name}%`,
   ]);
@@ -47,69 +115,21 @@ async function getUserByEmail(email) {
 //get users by shorlisted status (final)
 async function getUserByShortlisted(shortlisted) {
   const data = await query("SELECT * FROM users ILIKE $1;", [
-    `%${}%`,
-  ]);
-  return data.rows;
-}
-
-// patch by key using the id and value of your key
-// (if you want to updat stage 1 values with your json object the id will be the persons id, the key will be stage_1, the value is the json object)
-async function patchUser(id, key, value) {
-  const data = await query(
-    "UPDATE users SET $1 = $2 WHERE id = $3 RETURNING *;",
-    [key, value, id]
-  );
-  return data.rows;
-}
-
-// creates a new User at completion of stage 1 of application
-async function postUser(User) {
-  const { username, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final } = User;
-  const data = await query(
-    "INSERT INTO Users (username, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;",
-    [username, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final]
-  );
-  return data.rows;
-}
-
-// modifies an existing User if needed
-async function putUser(User, id) {
-  const { cityName } = User;
-  const data = await query(
-    "UPDATE Users SET cityName = $1 WHERE id = $7 RETURNING *;",
-    [cityName]
-  );
-  return data.rows;
-}
-
-// modifies a specific column for an existing User
-async function patchUser(User, id) {
-  const columns = ["cityName"];
-  const oldValues = await getUserById(id);
-  const newValues = columns.map((i) =>
-    User[i] === undefined ? oldValues[i] : User[i]
-  );
-  const data = await query(
-    "UPDATE Users SET $1 = $2 WHERE id = $3 RETURNING *;",
-    [...newValues, User.id]
-  );
-  return data.rows;
-}
-
-// deletes User by id if needed
-async function deleteUser(id) {
-  const data = await query("DELETE FROM Users WHERE id = $1 RETURNING *;", [
-    id,
+    `%${shortlisted}%`,
   ]);
   return data.rows;
 }
 
 module.exports = {
+  getUserInfo,
   getAllUsers,
   getUserById,
-  getUserByCityName,
+  getUserByUsername,
+  getUserByFirstName,
+  getUserByLastName,
+  getUserByEmail,
+  getUserByShortlisted,
   postUser,
-  putUser,
   patchUser,
   deleteUser,
 };
