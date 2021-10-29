@@ -9,6 +9,7 @@ const {
   getUserByFirstName,
   getUserByLastName,
   getUserByEmail,
+  getUserIdByEmail,
   getUserByShortlisted,
   postUser,
   patchUser,
@@ -17,14 +18,14 @@ const {
 
 // GET requests - all generic requests with no specific id
 router.get("/", async (req, res) => {
-  const { cityName } = req.query;
+  const { email } = req.query;
 
-  // GET by cityName
-  if (cityName) {
-    const data = await getUserByCityName(cityName);
+  // GET by email
+  if (email) {
+    const data = await getUserIdByEmail(email);
     res.json({
       success: true,
-      message: `Search by cityName: ${cityName}`,
+      message: `Search by email: ${email}`,
       payload: data,
     });
     return;
