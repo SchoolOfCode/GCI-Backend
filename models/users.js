@@ -20,6 +20,7 @@ async function getUserInfo(id, column) {
 
 // creates a new user at completion of stage 1 of application using the user object parsed from JSON
 async function postUser(user) {
+  let userData = JSON.parse(user)
   const {
     username, // string
     current_stage, //string
@@ -34,7 +35,7 @@ async function postUser(user) {
     stage_4, //JSON obj
     interview, //JSON obj
     final, //JSON obj
-  } = user;
+  } = userData;
   const data = await query(
     "INSERT INTO users (username, current_stage, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;",
     [
