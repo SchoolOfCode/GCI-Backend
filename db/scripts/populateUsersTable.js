@@ -24,8 +24,8 @@ async function populateUsersTable() {
   }
   console.log("users table populated");
 }
-// if (require.main === module) {
-//   populateTable();
-// }
+if (require.main === module) {
+  populateTable();
+}
 
 module.exports = populateUsersTable;

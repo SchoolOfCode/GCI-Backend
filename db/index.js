@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 // accessing the database
 const pool = new Pool({
