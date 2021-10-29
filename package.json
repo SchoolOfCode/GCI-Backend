@@ -2,8 +2,12 @@
   "name": "gci-backend",
   "version": "0.0.0",
   "private": true,
+  "randomcomment": "-r dotenv/config",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dbCreateUsersTable": "node  ./db/scripts/createUsersTable.js",
+    "dbPopulateUsersTable": "node ./db/scripts/populateUsersTable.js",
+    "dbDropUsersTable": "node ./db/scripts/dropUsersTable.js"
   },
   "dependencies": {
     "axios": "^0.24.0",

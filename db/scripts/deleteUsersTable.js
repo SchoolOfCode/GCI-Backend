@@ -7,8 +7,8 @@ async function deleteUsersTable() {
   console.log("users table deleted");
 }
 
-// if (require.main === module) {
-//   deleteTable();
-// }
+if (require.main === module) {
+  deleteTable();
+}
 
 module.exports = deleteUsersTable;
