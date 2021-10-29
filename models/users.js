@@ -35,6 +35,7 @@ async function postUser(user) {
     interview, //JSON obj
     final, //JSON obj
   } = user;
+  console.log(username, "line 38 in models users")
   const data = await query(
     "INSERT INTO users (username, current_stage, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;",
     [
