@@ -69,6 +69,7 @@ router.post("/", async (req, res) => {
   const { body } = req;
   const data = await postUser(body);
   console.log("this is the body", body)
+  console.log(req)
   res.json({
     success: true,
     message: `New user added`,
