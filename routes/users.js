@@ -67,7 +67,8 @@ router.get("/:id", async (req, res) => {
 //   POST request - this is used to create a new user
 router.post("/", async (req, res) => {
   const { body } = req;
-  const data = await postUser(JSON.parse(body));
+  const data = await postUser(body);
+  console.log("this is the body", body)
   res.json({
     success: true,
     message: `New user added`,
