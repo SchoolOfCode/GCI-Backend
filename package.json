@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node -r dotenv/config ./bin/www",
+    "dbCreateUsersTable": "node -r dotenv/config db/scripts/createUsersTable.js",
+    "dbPopulateUsersTable": "node -r dotenv/config db/scripts/populateUsersTable.js",
+    "dbDropUsersTable": "node -r dotenv/config db/scripts/dropUsersTable.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
