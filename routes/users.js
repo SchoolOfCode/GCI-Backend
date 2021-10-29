@@ -68,7 +68,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { body } = req;
   const data = await postUser(body);
-  console.log("this is the body", data)
+  console.log("this is the body", body)
   res.json({
     success: true,
     message: `New user added`,
