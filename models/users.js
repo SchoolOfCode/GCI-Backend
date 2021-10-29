@@ -2,8 +2,17 @@ const { query } = require("../db");
 
 // CLIENT MODELS
 
+//get users by email
+async function getUserIdByEmail(email) {
+  const data = await query("SELECT id FROM users WHERE email ILIKE $1;", [
+    `%${email}%`,
+  ]);
+  return data.rows;
+}
+
 // gets the information from a specific column
 // USE THIS ONE TO CHECK IF YOU HAVE SOMEONE IN PROGRESS OF A SPECIFIC STAGE ON THE CLIENT FRONTEND - if it is null or error, continue from Stage 1
+
 async function getUserInfo(id, column) {
   const data = await query("SELECT $1 FROM users WHERE id = $2", [column, id]);
   return data.rows; // if under a JSON, will have a JSON format
@@ -128,6 +137,7 @@ module.exports = {
   getUserByFirstName,
   getUserByLastName,
   getUserByEmail,
+  getUserIdByEmail,
   getUserByShortlisted,
   postUser,
   patchUser,
