@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
 // ex GET backend.co.uk/30?column=email would return the email for our user 30
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const { column } = req.query;
+  // const { column } = req.query;
   // if (column) {
   //   const data = await getUserInfo(id);
   //   res.json({
