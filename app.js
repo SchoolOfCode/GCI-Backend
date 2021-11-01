@@ -9,6 +9,10 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+var corsOptions = {
+  origin: 'https://main.d23j2vkjenno48.amplifyapp.com/',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
 
 
 // view engine setup
@@ -20,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
