@@ -14,7 +14,7 @@ async function getUserIdByEmail(email) {
 // USE THIS ONE TO CHECK IF YOU HAVE SOMEONE IN PROGRESS OF A SPECIFIC STAGE ON THE CLIENT FRONTEND - if it is null or error, continue from Stage 1
 
 async function getUserInfo(id, column) {
-  const data = await query("SELECT $1 FROM users WHERE id = $2", [column, id]);
+  const data = await query("SELECT * FROM users WHERE id = $1", [id]);
   return data.rows; // if under a JSON, will have a JSON format
 }
 
