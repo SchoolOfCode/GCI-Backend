@@ -48,10 +48,10 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { column } = req.query;
   if (column) {
-    const data = await getUserInfo(id, column);
+    const data = await getUserInfo(id);
     res.json({
       success: true,
-      message: `Search result for user with id: ${id} and column: ${column}`,
+      message: `Search result for user with id: ${id}`,
       payload: data,
     });
   } else {
