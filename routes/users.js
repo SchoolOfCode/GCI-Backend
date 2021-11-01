@@ -81,6 +81,7 @@ router.patch("/:id", async (req, res) => {
   const { body } = req;
   const { id } = req.params;
   const { column } = req.query;
+  console.log(column, "is the column")
   const data = await patchUser(id, column, body);
   res.json({
     success: true,
