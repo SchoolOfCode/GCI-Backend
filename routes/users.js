@@ -47,21 +47,21 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { column } = req.query;
-  if (column) {
-    const data = await getUserInfo(id);
-    res.json({
-      success: true,
-      message: `Search result for user with id: ${id}`,
-      payload: data,
-    });
-  } else {
+  // if (column) {
+  //   const data = await getUserInfo(id);
+  //   res.json({
+  //     success: true,
+  //     message: `Search result for user with id: ${id}`,
+  //     payload: data,
+  //   });
+  // } else {
     const data = await getUserById(id);
     res.json({
       success: true,
       message: `Search result for user with id: ${id}`,
       payload: data,
     });
-  }
+  // }
 });
 
 //   POST request - this is used to create a new user
