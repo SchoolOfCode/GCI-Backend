@@ -60,11 +60,27 @@ async function postUser(user) {
 // this is used to update details on an existing user from the users table
 // (if you want to update stage 1 values with your json object the id will be the persons id, the key will be stage_1, the value is the json object)
 async function patchUser(id, column, value) {
-  const data = await query(
-    "UPDATE users SET $1 = $2 WHERE id = $3 RETURNING *;",
-    [column, value, id]
-  );
-  return data.rows;
+  if(column === "stage_2"){
+    const data = await query(
+      "UPDATE users SET stage_2 = $1 WHERE id = $2 RETURNING *;",
+      [ value, id]
+    );
+    return data.rows;
+  } else if(column === "stage_3") {
+    const data = await query(
+      "UPDATE users SET stage_3 = $1 WHERE id = $2 RETURNING *;",
+      [ value, id]
+    );
+    return data.rows;
+  }else if(column === "stage_4") {
+    const data = await query(
+      "UPDATE users SET stage_4 = $1 WHERE id = $2 RETURNING *;",
+      [ value, id]
+    );
+    return data.rows;
+  }
+ 
+  return "Error";
 }
 
 // deletes user by id if needed
