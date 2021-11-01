@@ -78,6 +78,12 @@ async function patchUser(id, column, value) {
       [ value, id]
     );
     return data.rows;
+  }else if(column === "current_stage") {
+    const data = await query(
+      "UPDATE users SET current_stage = $1 WHERE id = $2 RETURNING *;",
+      [ value.stage, id]
+    );
+    return data.rows;
   }
  
   return "Error";
