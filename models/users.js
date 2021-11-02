@@ -109,7 +109,7 @@ async function getAllUsers() {
 async function getPagedUsers(offset) {
   let page = offset - 1;
   let calculatedOffset = page * 10;
-  const data = await query("SELECT * FROM users ORDER BY current_stage LIMIT 10 OFFSET $1;",[calculatedOffset]);
+  const data = await query("SELECT * FROM users ORDER BY current_stage DESC LIMIT 10 OFFSET $1;",[calculatedOffset]);
   return data.rows;
 }
 
