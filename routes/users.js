@@ -4,6 +4,7 @@ var router = express.Router();
 const {
   getUserInfo,
   getAllUsers,
+  getPagedUsers,
   getUserById,
   getUserByUsername,
   getUserByFirstName,
@@ -18,7 +19,7 @@ const {
 
 // GET requests - all generic requests with no specific id
 router.get("/", async (req, res) => {
-  const { email } = req.query;
+  const { email, offset } = req.query;
 
   // GET by email
   if (email) {
@@ -26,6 +27,16 @@ router.get("/", async (req, res) => {
     res.json({
       success: true,
       message: `Search by email: ${email}`,
+      payload: data,
+    });
+    return;
+  }
+
+  if (offset) {
+    const data = await getPagedUsers(offset);
+    res.json({
+      success: true,
+      message: `Search by page number: ${offset}`,
       payload: data,
     });
     return;

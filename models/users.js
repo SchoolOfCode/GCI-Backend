@@ -105,6 +105,14 @@ async function getAllUsers() {
   return data.rows;
 }
 
+// gets all User details from all columns, paged by page number, limited by 10
+async function getPagedUsers(offset) {
+  let page = offset - 1;
+  let calculatedOffset = page * 10;
+  const data = await query("SELECT * FROM users ORDER BY current_stage LIMIT 10 OFFSET $1;",[calculatedOffset]);
+  return data.rows;
+}
+
 // get Users byID
 async function getUserById(id) {
   const data = await query("SELECT * FROM users WHERE id = $1;", [id]);
@@ -154,6 +162,7 @@ async function getUserByShortlisted(shortlisted) {
 module.exports = {
   getUserInfo,
   getAllUsers,
+  getPagedUsers,
   getUserById,
   getUserByUsername,
   getUserByFirstName,
