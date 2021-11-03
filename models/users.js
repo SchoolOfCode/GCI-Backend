@@ -5,7 +5,7 @@ const { query } = require("../db");
 //get users by email
 async function getUserIdByEmail(email) {
   const data = await query("SELECT id FROM users WHERE username ILIKE $1;", [
-    email
+    email,
   ]);
   return data.rows;
 }
@@ -81,6 +81,18 @@ async function patchUser(id, column, value) {
   } else if (column === "current_stage") {
     const data = await query(
       "UPDATE users SET current_stage = $1 WHERE id = $2 RETURNING *;",
+      [value.stage, id]
+    );
+    return data.rows;
+  } else if (column === "interview") {
+    const data = await query(
+      "UPDATE users SET interview = $1 WHERE id = $2 RETURNING *;",
+      [value.stage, id]
+    );
+    return data.rows;
+  } else if (column === "final") {
+    const data = await query(
+      "UPDATE users SET final = $1 WHERE id = $2 RETURNING *;",
       [value.stage, id]
     );
     return data.rows;
