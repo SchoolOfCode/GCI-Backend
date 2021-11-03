@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
 
   // GET by email
   if (email) {
+    console.log(email)
     const data = await getUserIdByEmail(email);
     res.json({
       success: true,
