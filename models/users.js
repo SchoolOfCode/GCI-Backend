@@ -87,13 +87,13 @@ async function patchUser(id, column, value) {
   } else if (column === "interview") {
     const data = await query(
       "UPDATE users SET interview = $1 WHERE id = $2 RETURNING *;",
-      [value.stage, id]
+      [value.interview, id]
     );
     return data.rows;
   } else if (column === "final") {
     const data = await query(
       "UPDATE users SET final = $1 WHERE id = $2 RETURNING *;",
-      [value.stage, id]
+      [value.final, id]
     );
     return data.rows;
   }
