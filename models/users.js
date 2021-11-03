@@ -4,7 +4,7 @@ const { query } = require("../db");
 
 //get users by email
 async function getUserIdByEmail(email) {
-  const data = await query("SELECT * FROM users WHERE username ILIKE $1;", [
+  const data = await query("SELECT id FROM users WHERE username ILIKE $1;", [
     email
   ]);
   return data.rows;
