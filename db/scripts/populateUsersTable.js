@@ -4,7 +4,7 @@ const { usersData } = require("../../usersData");
 //populating table with users details
 async function populateUsersTable() {
   const sqlQuery =
-    "INSERT INTO users (username, current_stage, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;";
+    "INSERT INTO users (username,current_stage,first_name,last_name,email,contact_number,created_at,stage_1,stage_2,stage_3,stage_4,interview,final,region,assignee,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *;";
   for (let user of usersData) {
     const response = await query(sqlQuery, [
       user.username,
@@ -20,6 +20,9 @@ async function populateUsersTable() {
       user.stage_4,
       user.interview,
       user.final,
+      user.region,
+      user.assignee,
+      user.status
     ]);
   }
   console.log("users table populated");

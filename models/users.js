@@ -34,9 +34,12 @@ async function postUser(user) {
     stage_4, //JSON obj
     interview, //JSON obj
     final, //JSON obj
+    region,
+    assignee,
+    status,
   } = user;
   const data = await query(
-    "INSERT INTO users (username, current_stage, first_name, last_name, email, contact_number, created_at, stage_1, stage_2, stage_3, stage_4, interview, final) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;",
+    "INSERT INTO users (username,current_stage,first_name,last_name,email,contact_number,created_at,stage_1,stage_2,stage_3,stage_4,interview,final,region,assignee,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *;",
     [
       username,
       current_stage,
@@ -51,6 +54,9 @@ async function postUser(user) {
       stage_4,
       interview,
       final,
+      region,
+      assignee,
+      status,
     ]
   );
   return data.rows;
@@ -131,42 +137,74 @@ async function getPagedUsers(
 ) {
   let page = offset - 1;
   let calculatedOffset = page * 10;
+  let stageVal = "null";
+  let regionVal = "null";
+  let assigneeVal = "null";
+  let statusVal = "Pending";
+  let interviewVal = "No";
+  let shortlistedVal = "No";
+  let searchVal = "";
 
-  if (date === "ASC" || date === "DESC") {
-    let stageVal;
-    if (stage !== "none") {
-      if (stage === "Stage_1") {
-        stageVal = 1;
-      } else if (stage === "Stage_2") {
-        stageVal = 2;
-      } else if (stage === "Stage_3") {
-        stageVal = 3;
-      } else if (stage === "Stage_4") {
-        stageVal = 4;
-      } else if (stage === "Interview") {
-        stageVal = "5 OR 6";
-      } else if (stage === "Final") {
-        stageVal = 7;
-      }
-      const data = await query(
-        "SELECT * FROM users WHERE current_stage = $1 ORDER BY current_stage DESC LIMIT 10 OFFSET $2;",
-        [stageVal, calculatedOffset]
-      );
-      return data.rows;
-    } else {
-      const data = await query(
-        "SELECT * FROM users ORDER BY date $1 LIMIT 10 OFFSET $2;",
-        [date, calculatedOffset]
-      );
-      return data.rows;
+  if (region !== "none") regionVal = region;
+  if (assignee !== "none") assigneeVal = assignee;
+  if (status !== "none") statusVal = status;
+  if (interview !== "none") interviewVal = interview;
+  if (shortlisted !== "none") shortlistedVal = shortlisted;
+  if (search !== "") searchVal = search;
+
+  if (stage !== "none") {
+    if (stage === "Stage_1") {
+      stageVal = 1;
+    } else if (stage === "Stage_2") {
+      stageVal = 2;
+    } else if (stage === "Stage_3") {
+      stageVal = 3;
+    } else if (stage === "Stage_4") {
+      stageVal = 4;
+    } else if (stage === "Interview") {
+      stageVal = "5 OR 6";
+    } else if (stage === "Final") {
+      stageVal = 7;
     }
+    const data = await query(
+      "SELECT * FROM users WHERE stage = $1 AND region = '$2' AND assignee = '$3' AND status = '$4' AND interview = '$5' AND shortlisted = '$6' ORDER BY current_stage DESC LIMIT 10 OFFSET $;",
+      [
+        stageVal,
+        regionVal,
+        assigneeVal,
+        interviewVal,
+        shortlistedVal,
+        stageVal,
+        calculatedOffset,
+      ]
+    );
+    return data.rows;
   }
 
   const data = await query(
-    "SELECT * FROM users ORDER BY current_stage DESC LIMIT 10 OFFSET $1;",
-    [calculatedOffset]
+    "SELECT * FROM users WHERE region = '$1' AND assignee = '$2' AND status = '$3' AND interview = '$4' AND shortlisted = '$5' ORDER BY current_stage DESC LIMIT 10 OFFSET $;",
+    [
+      regionVal,
+      assigneeVal,
+      interviewVal,
+      shortlistedVal,
+      stageVal,
+      calculatedOffset,
+    ]
   );
   return data.rows;
+
+  // const data = await query(
+  //   "SELECT * FROM users ORDER BY date $1 LIMIT 10 OFFSET $2;",
+  //   [date, calculatedOffset]
+  // );
+  // return data.rows;
+
+  // const data = await query(
+  //   "SELECT * FROM users ORDER BY current_stage DESC LIMIT 10 OFFSET $1;",
+  //   [calculatedOffset]
+  // );
+  // return data.rows;
 }
 
 // get Users byID
