@@ -19,11 +19,22 @@ const {
 
 // GET requests - all generic requests with no specific id
 router.get("/", async (req, res) => {
-  const { email, offset } = req.query;
+  const {
+    email,
+    offset,
+    stage,
+    date,
+    region,
+    assignee,
+    status,
+    interview,
+    shortlisted,
+    search,
+  } = req.query;
 
   // GET by email
   if (email) {
-    console.log(email)
+    console.log(email);
     const data = await getUserIdByEmail(email);
     res.json({
       success: true,
@@ -34,7 +45,17 @@ router.get("/", async (req, res) => {
   }
 
   if (offset) {
-    const data = await getPagedUsers(offset);
+    const data = await getPagedUsers(
+      offset,
+      stage,
+      date,
+      region,
+      assignee,
+      status,
+      interview,
+      shortlisted,
+      search
+    );
     res.json({
       success: true,
       message: `Search by page number: ${offset}`,
@@ -67,12 +88,12 @@ router.get("/:id", async (req, res) => {
   //     payload: data,
   //   });
   // } else {
-    const data = await getUserById(id);
-    res.json({
-      success: true,
-      message: `Search result for user with id: ${id}`,
-      payload: data,
-    });
+  const data = await getUserById(id);
+  res.json({
+    success: true,
+    message: `Search result for user with id: ${id}`,
+    payload: data,
+  });
   // }
 });
 
@@ -93,7 +114,7 @@ router.patch("/:id", async (req, res) => {
   const { body } = req;
   const { id } = req.params;
   const { column } = req.query;
-  console.log(column, "is the column")
+  console.log(column, "is the column");
   const data = await patchUser(id, column, body);
   res.json({
     success: true,

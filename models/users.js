@@ -118,9 +118,50 @@ async function getAllUsers() {
 }
 
 // gets all User details from all columns, paged by page number, limited by 10
-async function getPagedUsers(offset) {
+async function getPagedUsers(
+  offset,
+  stage,
+  date, //  desc/asc
+  region,
+  assignee,
+  status,
+  interview,
+  shortlisted,
+  search
+) {
   let page = offset - 1;
   let calculatedOffset = page * 10;
+
+  if (date === "ASC" || date === "DESC") {
+    let stageVal;
+    if (stage !== "none") {
+      if (stage === "Stage_1") {
+        stageVal = 1;
+      } else if (stage === "Stage_2") {
+        stageVal = 2;
+      } else if (stage === "Stage_3") {
+        stageVal = 3;
+      } else if (stage === "Stage_4") {
+        stageVal = 4;
+      } else if (stage === "Interview") {
+        stageVal = "5 OR 6";
+      } else if (stage === "Final") {
+        stageVal = 7;
+      }
+      const data = await query(
+        "SELECT * FROM users WHERE current_stage = $1 ORDER BY current_stage DESC LIMIT 10 OFFSET $2;",
+        [stageVal, calculatedOffset]
+      );
+      return data.rows;
+    } else {
+      const data = await query(
+        "SELECT * FROM users ORDER BY date $1 LIMIT 10 OFFSET $2;",
+        [date, calculatedOffset]
+      );
+      return data.rows;
+    }
+  }
+
   const data = await query(
     "SELECT * FROM users ORDER BY current_stage DESC LIMIT 10 OFFSET $1;",
     [calculatedOffset]
