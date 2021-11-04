@@ -141,15 +141,15 @@ async function getPagedUsers(
   if (region !== "none" && region !== undefined)
     queryVal += `AND first_name = '${region}'`;
   if (assignee !== "none" && assignee !== undefined)
-    queryVal += " AND assignee = " + assignee;
+    queryVal += `AND assignee = '${assignee}'`;
   if (status !== "none" && status !== undefined)
-    queryVal += " AND status = " + status;
+  queryVal += `AND status = '${status}'`;
   if (interview !== "none" && interview !== undefined)
-    queryVal += " AND interview = " + interview;
+  queryVal += `AND interview = '${interview}'`;
   if (shortlisted !== "none" && shortlisted !== undefined)
-    queryVal += " AND shortlisted = " + shortlisted;
-  if (search !== "" && search !== undefined)
-    queryVal += " AND search = " + search;
+  queryVal += `AND shortlisted = '${shortlisted}'`;
+  // if (search !== "" && search !== undefined)
+  // queryVal += `AND search = '${search}'`;
 
   if (stage !== "none"&&stage!==undefined) {
     if (stage === "Stage_1") {
