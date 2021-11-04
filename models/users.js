@@ -137,60 +137,55 @@ async function getPagedUsers(
 ) {
   let page = offset - 1;
   let calculatedOffset = page * 10;
-  let stageVal = "null";
-  let regionVal = "null";
-  let assigneeVal = "null";
-  let statusVal = "Pending";
-  let interviewVal = "No";
-  let shortlistedVal = "No";
-  let searchVal = "";
+  let queryVal ="true ";
+  if (region !== "none" && region !== undefined)
+    queryVal += `AND first_name = '${region}'`;
+  if (assignee !== "none" && assignee !== undefined)
+    queryVal += " AND assignee = " + assignee;
+  if (status !== "none" && status !== undefined)
+    queryVal += " AND status = " + status;
+  if (interview !== "none" && interview !== undefined)
+    queryVal += " AND interview = " + interview;
+  if (shortlisted !== "none" && shortlisted !== undefined)
+    queryVal += " AND shortlisted = " + shortlisted;
+  if (search !== "" && search !== undefined)
+    queryVal += " AND search = " + search;
 
-  if (region !== "none") regionVal = region;
-  if (assignee !== "none") assigneeVal = assignee;
-  if (status !== "none") statusVal = status;
-  if (interview !== "none") interviewVal = interview;
-  if (shortlisted !== "none") shortlistedVal = shortlisted;
-  if (search !== "") searchVal = search;
-
-  if (stage !== "none") {
+  if (stage !== "none"&&stage!==undefined) {
     if (stage === "Stage_1") {
-      stageVal = 1;
+      queryVal += "AND stage = " + 1;
     } else if (stage === "Stage_2") {
-      stageVal = 2;
+      queryVal += "AND stage = " + 2;
     } else if (stage === "Stage_3") {
-      stageVal = 3;
+      queryVal += "AND stage = " + 3;
     } else if (stage === "Stage_4") {
-      stageVal = 4;
+      queryVal += "AND stage = " + 4;
     } else if (stage === "Interview") {
-      stageVal = "5 OR 6";
+      queryVal += "AND stage = " + "5 OR 6";
     } else if (stage === "Final") {
-      stageVal = 7;
+      queryVal += "AND stage = " + 7;
     }
+    // const data = await query(
+    //   "SELECT * FROM users WHERE current_stage = $1 AND region = $2 OR assignee = $3 AND status = $4 AND interview = $5 AND shortlisted = $6 ORDER BY current_stage DESC LIMIT 10 OFFSET $7;",
+    //   [
+    //     stageVal,
+    //     regionVal,
+    //     assigneeVal,
+    //     interviewVal,
+    //     shortlistedVal,
+    //     stageVal,
+    //     calculatedOffset,
+    //   ]
+    // );
+    // return data.rows;
     const data = await query(
-      "SELECT * FROM users WHERE stage = $1 AND region = '$2' AND assignee = '$3' AND status = '$4' AND interview = '$5' AND shortlisted = '$6' ORDER BY current_stage DESC LIMIT 10 OFFSET $;",
-      [
-        stageVal,
-        regionVal,
-        assigneeVal,
-        interviewVal,
-        shortlistedVal,
-        stageVal,
-        calculatedOffset,
-      ]
+      `SELECT * FROM users WHERE $1 DESC LIMIT 10 OFFSET $2;;`,[queryVal,calculatedOffset]
     );
     return data.rows;
   }
 
   const data = await query(
-    "SELECT * FROM users WHERE region = '$1' AND assignee = '$2' AND status = '$3' AND interview = '$4' AND shortlisted = '$5' ORDER BY current_stage DESC LIMIT 10 OFFSET $;",
-    [
-      regionVal,
-      assigneeVal,
-      interviewVal,
-      shortlistedVal,
-      stageVal,
-      calculatedOffset,
-    ]
+    `SELECT * FROM users WHERE ${queryVal} ORDER BY current_stage DESC LIMIT 10 OFFSET ${calculatedOffset};`
   );
   return data.rows;
 
