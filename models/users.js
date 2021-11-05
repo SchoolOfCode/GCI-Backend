@@ -164,7 +164,7 @@ async function getPagedUsers(
     }
   }
   if (search !== "" && search !== undefined) {
-    queryVal = `AND username = ${search} OR current_stage = ${search} OR first_name = ${search} OR last_name = ${search} OR email = ${search} OR contact_number = ${search} OR created_at = ${search} OR region = ${search} OR assignee = ${search} OR status = ${search}`;
+    queryVal = `AND username = ${search} OR current_stage = ${search} OR first_name = ${search} OR last_name = ${search} OR email = ${search} OR contact_number = ${search} OR created_at = ${search} OR stage_1[14] = ${search} OR assignee = ${search} OR status = ${search}`;
   }
 
   const data = await query(
