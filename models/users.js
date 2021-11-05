@@ -166,16 +166,14 @@ async function getPagedUsers(
     stage !== "" &&
     stage !== null
   ) {
-    if (stage === "Stage 1") {
-      queryVal += "AND current_stage = " + 1;
-    } else if (stage === "Stage 2") {
+    if (stage === "Stage 2") {
       queryVal += "AND current_stage = " + 2;
     } else if (stage === "Stage 3") {
       queryVal += "AND current_stage = " + 3;
     } else if (stage === "Stage 4") {
       queryVal += "AND current_stage = " + 4;
     } else if (stage === "Interview") {
-      queryVal += "AND current_stage = " + "5 OR 6";
+      queryVal += "AND current_stage = 5 OR current_stage = 6";
     } else if (stage === "Final") {
       queryVal += "AND current_stage = " + 7;
     }
