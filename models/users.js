@@ -164,7 +164,7 @@ async function getPagedUsers(
     }
   }
   if (search !== "" && search !== undefined) {
-    search = `%${search}%`;
+    search = `${search}`;
     queryVal = `AND id ILIKE ${search} OR username ILIKE ${search} OR current_stage ILIKE ${search} OR first_name ILIKE ${search} OR last_name ILIKE ${search} OR email ILIKE ${search} OR contact_number ILIKE ${search} OR created_at ILIKE ${search} OR region ILIKE ${search} OR assignee ILIKE ${search} OR status ILIKE ${search}`;
   }
 
