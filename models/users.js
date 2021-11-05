@@ -149,13 +149,13 @@ async function getPagedUsers(
   if (shortlisted !== "none" && shortlisted !== undefined)
     queryVal += `AND shortlisted = '${shortlisted}'`;
   if (stage !== "none" && stage !== undefined) {
-    if (stage === "Stage_1") {
+    if (stage === "Stage 1") {
       queryVal += "AND stage = " + 1;
-    } else if (stage === "Stage_2") {
+    } else if (stage === "Stage 2") {
       queryVal += "AND stage = " + 2;
-    } else if (stage === "Stage_3") {
+    } else if (stage === "Stage 3") {
       queryVal += "AND stage = " + 3;
-    } else if (stage === "Stage_4") {
+    } else if (stage === "Stage 4") {
       queryVal += "AND stage = " + 4;
     } else if (stage === "Interview") {
       queryVal += "AND stage = " + "5 OR 6";
