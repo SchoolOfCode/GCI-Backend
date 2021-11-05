@@ -214,7 +214,7 @@ async function getPagedUsers(
   }
 
   const data = await query(
-    `SELECT * FROM users WHERE ${queryVal} ORDER BY current_stage DESC, date ${date} LIMIT 10 OFFSET ${calculatedOffset};`
+    `SELECT * FROM users WHERE ${queryVal} ORDER BY current_stage DESC, created_at ${date} LIMIT 10 OFFSET ${calculatedOffset};`
   );
   return data.rows;
 }
