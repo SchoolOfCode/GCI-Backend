@@ -193,7 +193,7 @@ async function getPagedUsers(
       queryVal += "AND current_stage = " + 7;
     }
   }
-  if (search !== "" && search !== undefined) {
+  if (search !== "" && search !== undefined && search !== null) {
     console.log("line167" + search);
     search = `'%${search}%'`;
     console.log("line169" + search);
