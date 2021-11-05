@@ -138,17 +138,47 @@ async function getPagedUsers(
   let page = offset - 1;
   let calculatedOffset = page * 10;
   let queryVal = "true ";
-  if (region !== "none" && region !== undefined)
+  if (
+    region !== "none" &&
+    region !== undefined &&
+    region !== "" &&
+    region !== null
+  )
     queryVal += `AND region = '${region}'`;
-  if (assignee !== "none" && assignee !== undefined)
+  if (
+    assignee !== "none" &&
+    assignee !== undefined &&
+    assignee !== "" &&
+    assignee !== null
+  )
     queryVal += `AND assignee = '${assignee}'`;
-  if (status !== "none" && status !== undefined)
+  if (
+    status !== "none" &&
+    status !== undefined &&
+    status !== "" &&
+    status !== null
+  )
     queryVal += `AND status = '${status}'`;
-  if (interview !== "none" && interview !== undefined)
+  if (
+    interview !== "none" &&
+    interview !== undefined &&
+    interview !== "" &&
+    interview !== null
+  )
     queryVal += `AND interview = '${interview}'`;
-  if (shortlisted !== "none" && shortlisted !== undefined)
+  if (
+    shortlisted !== "none" &&
+    shortlisted !== undefined &&
+    shortlisted !== "" &&
+    shortlisted !== null
+  )
     queryVal += `AND shortlisted = '${shortlisted}'`;
-  if (stage !== "none" && stage !== undefined) {
+  if (
+    stage !== "none" &&
+    stage !== undefined &&
+    stage !== "" &&
+    stage !== null
+  ) {
     if (stage === "Stage 1") {
       queryVal += "AND current_stage = " + 1;
     } else if (stage === "Stage 2") {
