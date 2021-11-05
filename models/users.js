@@ -92,6 +92,12 @@ async function patchUser(id, column, value) {
       [value.assignee, id]
     );
     return data.rows;
+  } else if (column === "status") {
+    const data = await query(
+      "UPDATE users SET status = $1 WHERE id = $2 RETURNING *;",
+      [value.status, id]
+    );
+    return data.rows;
   }
 
   return "Error";
