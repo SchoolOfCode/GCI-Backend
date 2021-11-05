@@ -10,14 +10,6 @@ async function getUserIdByEmail(email) {
   return data.rows;
 }
 
-// gets the information from a specific column
-// USE THIS ONE TO CHECK IF YOU HAVE SOMEONE IN PROGRESS OF A SPECIFIC STAGE ON THE CLIENT FRONTEND - if it is null or error, continue from Stage 1
-
-async function getUserInfo(id) {
-  const data = await query("SELECT * FROM users WHERE id = $1", [id]);
-  return data.rows; // if under a JSON, will have a JSON format
-}
-
 // creates a new user at completion of stage 1 of application using the user object parsed from JSON
 async function postUser(user) {
   const {
@@ -32,14 +24,13 @@ async function postUser(user) {
     stage_2, //JSON obj
     stage_3, //JSON obj
     stage_4, //JSON obj
-    interview, //JSON obj
     final, //JSON obj
     region,
     assignee,
     status,
   } = user;
   const data = await query(
-    "INSERT INTO users (username,current_stage,first_name,last_name,email,contact_number,created_at,stage_1,stage_2,stage_3,stage_4,interview,final,region,assignee,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *;",
+    "INSERT INTO users (username,current_stage,first_name,last_name,email,contact_number,created_at,stage_1,stage_2,stage_3,stage_4,final,region,assignee,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *;",
     [
       username,
       current_stage,
@@ -52,7 +43,6 @@ async function postUser(user) {
       stage_2,
       stage_3,
       stage_4,
-      interview,
       final,
       region,
       assignee,
@@ -88,12 +78,6 @@ async function patchUser(id, column, value) {
     const data = await query(
       "UPDATE users SET current_stage = $1 WHERE id = $2 RETURNING *;",
       [value.stage, id]
-    );
-    return data.rows;
-  } else if (column === "interview") {
-    const data = await query(
-      "UPDATE users SET interview = $1 WHERE id = $2 RETURNING *;",
-      [value.interview, id]
     );
     return data.rows;
   } else if (column === "final") {
@@ -137,7 +121,6 @@ async function getPagedUsers(
   region,
   assignee,
   status,
-  interview,
   shortlisted,
   search
 ) {
@@ -165,15 +148,6 @@ async function getPagedUsers(
     status !== null
   )
     queryVal += `AND status = '${status}'`;
-  if (
-    interview !== "none" &&
-    interview !== undefined &&
-    interview !== "" &&
-    interview !== null
-  ) {
-    if (interview === "Yes") queryVal += `AND current_stage = 6`;
-    if (interview === "No") queryVal += `AND current_stage < 6`;
-  }
 
   if (
     shortlisted !== "none" &&
@@ -225,57 +199,11 @@ async function getUserById(id) {
   return data.rows;
 }
 
-// gets Users by username
-async function getUserByUsername(username) {
-  const data = await query("SELECT * FROM users WHERE username ILIKE $1;", [
-    `%${username}%`,
-  ]);
-  return data.rows;
-}
-
-// get users by first name
-async function getUserByFirstName(first_name) {
-  const data = await query("SELECT * FROM users WHERE first_name ILIKE $1;", [
-    `%${first_name}%`,
-  ]);
-  return data.rows;
-}
-
-// get users by last name
-async function getUserByLastName(last_name) {
-  const data = await query("SELECT * FROM users WHERE last_name ILIKE $1;", [
-    `%${last_name}%`,
-  ]);
-  return data.rows;
-}
-
-//get users by email
-async function getUserByEmail(email) {
-  const data = await query("SELECT * FROM users WHERE email ILIKE $1;", [
-    `%${email}%`,
-  ]);
-  return data.rows;
-}
-
-//get users by shorlisted status (final)
-async function getUserByShortlisted(shortlisted) {
-  const data = await query("SELECT * FROM users ILIKE $1;", [
-    `%${shortlisted}%`,
-  ]);
-  return data.rows;
-}
-
 module.exports = {
-  getUserInfo,
   getAllUsers,
   getPagedUsers,
   getUserById,
-  getUserByUsername,
-  getUserByFirstName,
-  getUserByLastName,
-  getUserByEmail,
   getUserIdByEmail,
-  getUserByShortlisted,
   postUser,
   patchUser,
   deleteUser,

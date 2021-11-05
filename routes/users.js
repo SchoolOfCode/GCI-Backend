@@ -2,16 +2,10 @@ var express = require("express");
 var router = express.Router();
 
 const {
-  getUserInfo,
   getAllUsers,
   getPagedUsers,
   getUserById,
-  getUserByUsername,
-  getUserByFirstName,
-  getUserByLastName,
-  getUserByEmail,
   getUserIdByEmail,
-  getUserByShortlisted,
   postUser,
   patchUser,
   deleteUser,
@@ -27,7 +21,6 @@ router.get("/", async (req, res) => {
     region,
     assignee,
     status,
-    interview,
     shortlisted,
     search,
   } = req.query;
@@ -52,7 +45,6 @@ router.get("/", async (req, res) => {
       region,
       assignee,
       status,
-      interview,
       shortlisted,
       search
     );
