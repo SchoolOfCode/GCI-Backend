@@ -171,8 +171,11 @@ async function getPagedUsers(
     shortlisted !== undefined &&
     shortlisted !== "" &&
     shortlisted !== null
-  )
+  ) {
     if (shortlisted === "Yes") queryVal += `AND current_stage = 7`;
+    if (shortlisted === "No") queryVal += `AND current_stage < 7`;
+  }
+
   if (
     stage !== "none" &&
     stage !== undefined &&
