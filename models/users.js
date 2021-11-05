@@ -102,10 +102,9 @@ async function patchUser(id, column, value) {
       [value.final, id]
     );
     return data.rows;
-  }
-  else if (column === "assignee") {
+  } else if (column === "assignee") {
     const data = await query(
-      "UPDATE users SET final = $1 WHERE id = $2 RETURNING *;",
+      "UPDATE users SET assignee = $1 WHERE id = $2 RETURNING *;",
       [value.assignee, id]
     );
     return data.rows;
