@@ -165,9 +165,9 @@ async function getPagedUsers(
   }
   if (search !== "" && search !== undefined) {
     console.log("line167" + search);
-    search = `%${search}%`;
+    search = `'%${search}%'`;
     console.log("line169" + search);
-    queryVal = `true AND username ILIKE '${search}' OR current_stage ILIKE '${search}' OR first_name ILIKE '${search}' OR last_name ILIKE '${search}' OR email ILIKE '${search}' OR contact_number ILIKE '${search}' OR created_at ILIKE '${search}' OR region ILIKE '${search}' OR assignee ILIKE '${search} OR status ILIKE '${search}'`;
+    queryVal = `true AND username ILIKE ${search} OR current_stage ILIKE ${search} OR first_name ILIKE ${search} OR last_name ILIKE ${search} OR email ILIKE ${search} OR contact_number ILIKE ${search} OR created_at ILIKE ${search} OR region ILIKE ${search} OR assignee ILIKE ${search} OR status ILIKE ${search}`;
   }
 
   const data = await query(
