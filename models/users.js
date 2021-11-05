@@ -170,16 +170,19 @@ async function getPagedUsers(
     interview !== undefined &&
     interview !== "" &&
     interview !== null
-  )
-    queryVal += `AND interview = '${interview}'`;
+  ) {
+    if (interview === "Yes") queryVal += `AND current_stage = 6`;
+    if (interview === "No") queryVal += `AND current_stage < 6`;
+  }
+  
   if (
     shortlisted !== "none" &&
     shortlisted !== undefined &&
     shortlisted !== "" &&
     shortlisted !== null
   ) {
-    if (shortlisted === "Yes") queryVal += `AND current_stage = 7`;
-    if (shortlisted === "No") queryVal += `AND current_stage < 7`;
+    if (shortlisted === "Yes") queryVal += `AND current_stage = 6`;
+    if (shortlisted === "No") queryVal += `AND current_stage < 6`;
   }
 
   if (
