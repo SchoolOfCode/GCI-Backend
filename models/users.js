@@ -137,21 +137,18 @@ async function getPagedUsers(
 ) {
   let page = offset - 1;
   let calculatedOffset = page * 10;
-  let queryVal ="true ";
+  let queryVal = "true ";
   if (region !== "none" && region !== undefined)
     queryVal += `AND region = '${region}'`;
   if (assignee !== "none" && assignee !== undefined)
     queryVal += `AND assignee = '${assignee}'`;
   if (status !== "none" && status !== undefined)
-  queryVal += `AND status = '${status}'`;
+    queryVal += `AND status = '${status}'`;
   if (interview !== "none" && interview !== undefined)
-  queryVal += `AND interview = '${interview}'`;
+    queryVal += `AND interview = '${interview}'`;
   if (shortlisted !== "none" && shortlisted !== undefined)
-  queryVal += `AND shortlisted = '${shortlisted}'`;
-  // if (search !== "" && search !== undefined)
-  // queryVal += `AND search = '${search}'`;
-
-  if (stage !== "none"&&stage!==undefined) {
+    queryVal += `AND shortlisted = '${shortlisted}'`;
+  if (stage !== "none" && stage !== undefined) {
     if (stage === "Stage_1") {
       queryVal += "AND stage = " + 1;
     } else if (stage === "Stage_2") {
@@ -165,41 +162,16 @@ async function getPagedUsers(
     } else if (stage === "Final") {
       queryVal += "AND stage = " + 7;
     }
-    // const data = await query(
-    //   "SELECT * FROM users WHERE current_stage = $1 AND region = $2 OR assignee = $3 AND status = $4 AND interview = $5 AND shortlisted = $6 ORDER BY current_stage DESC LIMIT 10 OFFSET $7;",
-    //   [
-    //     stageVal,
-    //     regionVal,
-    //     assigneeVal,
-    //     interviewVal,
-    //     shortlistedVal,
-    //     stageVal,
-    //     calculatedOffset,
-    //   ]
-    // );
-    // return data.rows;
-    const data = await query(
-      `SELECT * FROM users WHERE $1 DESC LIMIT 10 OFFSET $2;;`,[queryVal,calculatedOffset]
-    );
-    return data.rows;
+  }
+  if (search !== "" && search !== undefined) {
+    search = `%${search}%`;
+    queryVal = `AND id ILIKE ${search} OR username ILIKE ${search} OR current_stage ILIKE ${search} OR first_name ILIKE ${search} OR last_name ILIKE ${search} OR email ILIKE ${search} OR contact_number ILIKE ${search} OR created_at ILIKE ${search} OR region ILIKE ${search} OR assignee ILIKE ${search} OR status ILIKE ${search}`;
   }
 
   const data = await query(
     `SELECT * FROM users WHERE ${queryVal} ORDER BY current_stage DESC LIMIT 10 OFFSET ${calculatedOffset};`
   );
   return data.rows;
-
-  // const data = await query(
-  //   "SELECT * FROM users ORDER BY date $1 LIMIT 10 OFFSET $2;",
-  //   [date, calculatedOffset]
-  // );
-  // return data.rows;
-
-  // const data = await query(
-  //   "SELECT * FROM users ORDER BY current_stage DESC LIMIT 10 OFFSET $1;",
-  //   [calculatedOffset]
-  // );
-  // return data.rows;
 }
 
 // get Users byID
