@@ -139,7 +139,7 @@ async function getPagedUsers(
   let calculatedOffset = page * 10;
   let queryVal = "true ";
   if (region !== "none" && region !== undefined)
-    queryVal += `AND region = '${region}'`;
+    queryVal += `AND first_name = '${region}'`;
   if (assignee !== "none" && assignee !== undefined)
     queryVal += `AND assignee = '${assignee}'`;
   if (status !== "none" && status !== undefined)
