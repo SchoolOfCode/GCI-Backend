@@ -98,6 +98,12 @@ async function patchUser(id, column, value) {
       [value.status, id]
     );
     return data.rows;
+  } else if (column === "interview") {
+    const data = await query(
+      "UPDATE users SET interview = $1 WHERE id = $2 RETURNING *;",
+      [value, id]
+    );
+    return data.rows;
   }
 
   return "Error";
@@ -153,6 +159,8 @@ async function getPagedUsers(
     status !== "" &&
     status !== null
   )
+    // this is to be commented out if you want to have status acc and rej removed from default query.
+    // you`d have to run the check at the end and say: if this, return standard query. else, modify the current query to have where status = pending
     queryVal += `AND status = '${status}'`;
 
   if (
